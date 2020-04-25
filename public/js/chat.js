@@ -99,8 +99,7 @@ messageForm.addEventListener('submit', (e) =>{
 
 sendLocationButton.addEventListener('click',()=>{
     if(!navigator.geolocation){
-        return alert('Geoloca
-        console.log(newMessageHeight);tion not supported')
+        return alert('Geolocation not supported')
     }
 
     sendLocationButton.setAttribute('disabled','disabled')
