@@ -1,0 +1,61 @@
+const users = []
+
+// addUser
+const addUser=({id,username,room}) =>{
+    // Clean the data
+    username=username.trim().toLowerCase()
+    room=room.trim().toLowerCase()
+
+    // Validate the data
+    if(!username || !room){
+        return{
+            error: "Username and error are required!"
+        }
+    }
+
+    // Check for existing user
+    const existingUser=users.find((user) =>{
+        return user.room === room && user.username === username
+    })
+
+    // Validate username
+    if(existingUser){
+        return{
+            error:'Username already in use'
+        }
+    }
+
+    // Store user
+    const user={id,username,room}
+    users.push(user)
+    return  {user}
+}
+
+// removeUser
+const removeUser = (id)=>{
+    const index = users.findIndex((user)=> user.id === id )
+
+    if(index !== -1){
+        return users.splice(index,1)[0]     // splice returns array because it can have multiple users but since we 
+                                            // require only 1 so we hardcode it to 1 and extract first element of array
+    }
+
+}
+
+// getUser
+const getUser = (id) =>{
+    return users.find((user) => user.id === id)
+}
+
+// getUsersinRoom
+const getUsersinRoom = (room) =>{
+    room = room.trim().toLowerCase()
+    return users.filter((user) =>   user.room === room )
+}
+
+module.exports = {
+    addUser,
+    removeUser,
+    getUser,
+    getUsersinRoom
+}
